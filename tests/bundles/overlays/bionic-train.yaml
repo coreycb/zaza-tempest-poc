@@ -1,0 +1,46 @@
+variables:
+  openstack-origin: &openstack-origin cloud:bionic-train
+
+series: &series bionic
+
+applications:
+  percona-cluster:
+    series: *series
+    options:
+      source: *openstack-origin
+  rabbitmq-server:
+    series: *series
+    options:
+      source: *openstack-origin
+  neutron-api:
+    series: *series
+    options:
+      openstack-origin: *openstack-origin
+  keystone:
+    series: *series
+    options:
+      openstack-origin: *openstack-origin
+  glance:
+    series: *series
+    options:
+      openstack-origin: *openstack-origin
+  neutron-gateway:
+    series: *series
+    options:
+      openstack-origin: *openstack-origin
+  nova-cloud-controller:
+    series: *series
+    options:
+      openstack-origin: *openstack-origin
+  nova-compute:
+    series: *series
+    options:
+      openstack-origin: *openstack-origin
+  placement:
+    series: *series
+    options:
+      openstack-origin: *openstack-origin
+  cinder:
+    series: *series
+    options:
+      openstack-origin: *openstack-origin

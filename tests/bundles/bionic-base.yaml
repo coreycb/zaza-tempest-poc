@@ -1,8 +1,3 @@
-variables:
-  openstack-origin: &openstack-origin cloud:bionic-train
-
-series: &series bionic
-
 machines:
   0:
     constraints: "mem=3072M"
@@ -24,39 +19,29 @@ applications:
   percona-cluster:
     charm: cs:~openstack-charmers-next/percona-cluster
     num_units: 1
-    options:
-      source: *openstack-origin
     to:
       - '0'
   rabbitmq-server:
     charm: cs:~openstack-charmers-next/rabbitmq-server
     num_units: 1
-    options:
-      source: *openstack-origin
     to:
       - '1'
   neutron-api:
     charm: cs:~openstack-charmers-next/neutron-api
-    series: *series
     num_units: 1
     options:
       flat-network-providers: physnet1
       neutron-security-groups: true
-      openstack-origin: *openstack-origin
     to:
       - '2'
   keystone:
     charm: cs:~openstack-charmers-next/keystone
     num_units: 1
-    options:
-      openstack-origin: *openstack-origin
     to:
       - '3'
   glance:
     charm: cs:~openstack-charmers-next/glance
     num_units: 1
-    options:
-      openstack-origin: *openstack-origin
     to:
       - '4'
   neutron-openvswitch:
@@ -66,7 +51,6 @@ applications:
     num_units: 1
     options:
       bridge-mappings: physnet1:br-ex
-      openstack-origin: *openstack-origin
     to:
       - '5'
   nova-cloud-controller:
@@ -74,7 +58,6 @@ applications:
     num_units: 1
     options:
       network-manager: Neutron
-      openstack-origin: *openstack-origin
     to:
       - '6'
   nova-compute:
@@ -85,22 +68,18 @@ applications:
       enable-live-migration: true
       enable-resize: true
       migration-auth-type: ssh
-      openstack-origin: *openstack-origin
     to:
       - '7'
       - '8'
   placement:
     charm: cs:~openstack-charmers-next/placement
     num_units: 1
-    options:
-      openstack-origin: *openstack-origin
     to:
       - '9'
   cinder:
     charm: cs:~openstack-charmers-next/cinder
     num_units: 1
     options:
-      openstack-origin: *openstack-origin
       block-device: /dev/vdb
       glance-api-version: 2
       overwrite: "true"
